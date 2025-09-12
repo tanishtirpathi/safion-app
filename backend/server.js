@@ -10,10 +10,12 @@ dotenv.config();
 const authRoutes = require("./routes/auth");
 const incidentRoutes = require("./routes/incidents");
 const sosRoutes = require("./routes/sos");
+const newsRoutes = require("./routes/news.routes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/api/news", newsRoutes);
 
 // ✅ connect to MongoDB (only once)
 mongoose.connect(process.env.MONGO_URI, {

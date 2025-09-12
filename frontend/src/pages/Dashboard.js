@@ -4,6 +4,7 @@ import api from "../utils/api";
 import MapComponent from "../components/MapComponent";
 import "./dashboard.css";
 import { useAuth } from '../context/AuthContext';
+import News from "./News";
 
 const Dashboard = () => {
   const [incidents, setIncidents] = useState([]);
@@ -35,8 +36,8 @@ const Dashboard = () => {
   <ul className="menu">
     <li className="active">Dashboard</li>
     <li onClick={() => navigate("/report")}>Report Incident</li>
-    <li>Live News</li>
-    <li>Safe Routes</li>
+    <li onClick={() => navigate("/news")}>Live News</li>
+    <li onClick={() => navigate("/full-map")}>Map</li>
     <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
     <li onClick={() => navigate("/settings")}>Settings</li>  {/* ✅ Updated */}
     <li onClick={() => navigate("/login")}>Logout</li>

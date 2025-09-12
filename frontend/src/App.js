@@ -11,7 +11,7 @@ import AdminPanel from "./pages/AdminPanel";
 import FullMap from "./pages/FullMap"; // <- import the new full map page
 import ProtectedRoute from "./components/ProtectedRoute";
 import Settings from "./pages/Settings";   // ✅ added
-
+import News from "./pages/News";
 
 function App() {
   return (
@@ -28,6 +28,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/news"
+          element={
+            <ProtectedRoute>
+              <News />
             </ProtectedRoute>
           }
         />

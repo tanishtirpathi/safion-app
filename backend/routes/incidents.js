@@ -1,4 +1,3 @@
-// routes/incidents.js
 const express = require("express");
 const router = express.Router();
 const Incident = require("../models/Incident");
@@ -35,6 +34,39 @@ router.get("/", auth, async (req, res) => {
     return res.json(incidents);
   } catch (err) {
     console.error("List incidents error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ✅ NEW: GET /api/incidents/nearby?lat=..&lng=..
+router.get("/nearby", async (req, res) => {
+  try {
+    const { lat, lng } = req.query;
+    if (!lat || !lng) {
+      return res.status(400).json({ error: "lat and lng required" });
+    }
+
+    const incidents = await Incident.find();
+
+    // Haversine formula to calculate distance
+    const nearby = incidents.filter((incident) => {
+      if (!incident.location?.lat || !incident.location?.lng) return false;
+      const R = 6371; // Earth radius in km
+      const dLat = (incident.location.lat - lat) * Math.PI / 180;
+      const dLng = (incident.location.lng - lng) * Math.PI / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat * Math.PI / 180) *
+          Math.cos(incident.location.lat * Math.PI / 180) *
+          Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c;
+      return distance <= 10; // ✅ within 10 km
+    });
+
+    res.json({ count: nearby.length });
+  } catch (err) {
+    console.error("Nearby incidents error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 });

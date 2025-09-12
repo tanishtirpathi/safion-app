@@ -54,10 +54,10 @@ const ReportIncident = () => {
       <aside className="sidebar">
         <h2 className="logo">SafetyApp</h2>
         <ul className="menu">
-          <li className="active">Dashboard</li>
-          <li onClick={() => navigate("/report")}>Report Incident</li>
-          <li>Live News</li>
-          <li>Safe Routes</li>
+          <li onClick={() => navigate("/dashboard")}>Dashboard</li>
+          <li className="active" onClick={() => navigate("/report")}>Report Incident</li>
+          <li onClick={() => navigate("/news")}>Live News</li>
+          <li onClick={() => navigate("/map")}>Map</li>
           <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
           <li onClick={() => navigate("/settings")}>Settings</li>{" "}
           {/* ✅ Updated */}
