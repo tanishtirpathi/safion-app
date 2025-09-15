@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import "./ReportIncident.css";
+import { useTranslation } from "react-i18next";  // ✅ Translation
 
 const ReportIncident = () => {
+  const { t } = useTranslation(); // ✅ Hook
   const [form, setForm] = useState({
     title: "",
     type: "theft",
@@ -24,59 +26,59 @@ const ReportIncident = () => {
     }
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await api.post("/api/incidents", {
-      title: form.title,
-      type: form.type,
-      description: form.description,
-      dateTime: form.dateTime,
-      location: {
-        lat: parseFloat(form.lat),
-        lng: parseFloat(form.lng),
-      },
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await api.post("/api/incidents", {
+        title: form.title,
+        type: form.type,
+        description: form.description,
+        dateTime: form.dateTime,
+        location: {
+          lat: parseFloat(form.lat),
+          lng: parseFloat(form.lng),
+        },
+      });
 
-    alert("Incident reported successfully");
-    navigate("/dashboard");
-  } catch (err) {
-    const msg =
-      err?.response?.data?.message || err.message || "Failed to report";
-    alert(msg);
-  }
-};
-
+      alert(t("Incident reported successfully"));
+      navigate("/dashboard");
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message || err.message || t("Failed to report");
+      alert(msg);
+    }
+  };
 
   return (
     <div className="admin-layout">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="logo">SafetyApp</h2>
+        <h2 className="logo">{t("SafetyApp")}</h2>
         <ul className="menu">
-          <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-          <li className="active" onClick={() => navigate("/report")}>Report Incident</li>
-          <li onClick={() => navigate("/news")}>Live News</li>
-          <li onClick={() => navigate("/map")}>Map</li>
-          <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
-          <li onClick={() => navigate("/settings")}>Settings</li>{" "}
-          {/* ✅ Updated */}
-          <li onClick={() => navigate("/login")}>Logout</li>
-        </ul>
+            <li onClick={() => navigate("/dashboard")}>{t("dashboard")}</li>
+            <li className="active" onClick={() => navigate("/report")}>{t("Report Incident")}</li>
+            <li onClick={() => navigate("/news")}>{t("Live News")}</li>
+            <li onClick={() => navigate("/full-map")}>{t("Map")}</li>
+            <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
+            <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
+            <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
+            <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
+            <li onClick={() => navigate("/login")}>{t("Logout")}</li>
+          </ul>
       </aside>
 
       {/* Main Content */}
       <div className="admin-content">
-        <h2 className="report-title">Report Incident</h2>
+        <h2 className="report-title">{t("Report Incident")}</h2>
         <form className="report-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Title</label>
+            <label>{t("Title")}</label>
             <input
               type="text"
               name="title"
               value={form.title}
               onChange={handleChange}
-              placeholder="Concise incident title"
+              placeholder={t("Concise incident title")}
               className="form-input"
               required
             />
@@ -84,23 +86,23 @@ const ReportIncident = () => {
 
           <div className="form-row">
             <div className="form-group half">
-              <label>Location (Latitude)</label>
+              <label>{t("Location (Latitude)")}</label>
               <input
                 name="lat"
                 value={form.lat}
                 onChange={handleChange}
-                placeholder="e.g. 28.7041"
+                placeholder={t("e.g. 28.7041")}
                 className="form-input"
                 required
               />
             </div>
             <div className="form-group half">
-              <label>Location (Longitude)</label>
+              <label>{t("Location (Longitude)")}</label>
               <input
                 name="lng"
                 value={form.lng}
                 onChange={handleChange}
-                placeholder="e.g. 77.1025"
+                placeholder={t("e.g. 77.1025")}
                 className="form-input"
                 required
               />
@@ -109,7 +111,7 @@ const ReportIncident = () => {
 
           <div className="form-row">
             <div className="form-group half">
-              <label>Category</label>
+              <label>{t("Category")}</label>
               <select
                 name="type"
                 value={form.type}
@@ -117,15 +119,15 @@ const ReportIncident = () => {
                 className="form-input"
                 required
               >
-                <option value="theft">Theft</option>
-                <option value="harassment">Harassment</option>
-                <option value="accident">Accident</option>
-                <option value="fire">Fire</option>
-                <option value="flood">Flood</option>
+                <option value="theft">{t("Theft")}</option>
+                <option value="harassment">{t("Harassment")}</option>
+                <option value="accident">{t("Accident")}</option>
+                <option value="fire">{t("Fire")}</option>
+                <option value="flood">{t("Flood")}</option>
               </select>
             </div>
             <div className="form-group half">
-              <label>Date & Time</label>
+              <label>{t("Date & Time")}</label>
               <input
                 type="datetime-local"
                 name="dateTime"
@@ -138,7 +140,7 @@ const ReportIncident = () => {
           </div>
 
           <div className="form-group">
-            <label>Description</label>
+            <label>{t("Description")}</label>
             <textarea
               name="description"
               value={form.description}
@@ -146,12 +148,12 @@ const ReportIncident = () => {
               required
               rows={5}
               className="form-input"
-              placeholder="Provide details about the incident"
+              placeholder={t("Provide details about the incident")}
             />
           </div>
 
           <div className="form-group">
-            <label>Evidence (Image/Video)</label>
+            <label>{t("Evidence (Image/Video)")}</label>
             <input
               type="file"
               name="evidence"
@@ -163,14 +165,14 @@ const ReportIncident = () => {
 
           <div className="form-actions">
             <button type="submit" className="btn-primary">
-              Submit Report
+              {t("Submit Report")}
             </button>
             <button
               type="button"
               className="btn-secondary"
               onClick={() => navigate("/dashboard")}
             >
-              Cancel
+              {t("Cancel")}
             </button>
           </div>
         </form>

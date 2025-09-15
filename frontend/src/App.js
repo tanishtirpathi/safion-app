@@ -12,7 +12,8 @@ import FullMap from "./pages/FullMap"; // <- import the new full map page
 import ProtectedRoute from "./components/ProtectedRoute";
 import Settings from "./pages/Settings";   // ✅ added
 import News from "./pages/News";
-
+import Instructions from "./pages/instructions";
+import Chatbot from "./pages/chatbot";  // ✅ yaha sahi import
 function App() {
   return (
     <>
@@ -47,6 +48,22 @@ function App() {
               <ReportIncident />
             </ProtectedRoute>
           }
+        /> 
+        <Route
+          path="/instructions"
+          element={
+            <ProtectedRoute>
+              <Instructions />
+            </ProtectedRoute>
+          }
+        /> 
+        <Route 
+          path="/chatbot" 
+          element={
+            <ProtectedRoute>
+              <Chatbot />
+            </ProtectedRoute>
+          } 
         />
 
         <Route

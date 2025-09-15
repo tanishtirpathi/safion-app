@@ -56,14 +56,16 @@ const News = () => {
       <aside className="sidebar">
         <h2 className="logo">SafetyApp</h2>
         <ul className="menu">
-          <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-          <li onClick={() => navigate("/report")}>Report Incident</li>
-          <li className="active">Live News</li>
-          <li onClick={() => navigate("/full-map")}>Map</li>
-          <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
-          <li onClick={() => navigate("/settings")}>Settings</li>
-          <li onClick={() => navigate("/login")}>Logout</li>
-        </ul>
+            <li onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
+            <li onClick={() => navigate("/report")}>{("Report Incident")}</li>
+            <li className="active" onClick={() => navigate("/news")}>{("Live News")}</li>
+            <li onClick={() => navigate("/full-map")}>{("Map")}</li>
+            <li onClick={() => navigate("/sos")}>{("Emergency Contacts")}</li>
+            <li onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
+            <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
+            <li onClick={() => navigate("/settings")}>{("Settings")}</li>
+            <li onClick={() => navigate("/login")}>{("Logout")}</li>
+          </ul>
       </aside>
 
       {/* Main Content */}

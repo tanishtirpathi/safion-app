@@ -12,10 +12,12 @@ const incidentRoutes = require("./routes/incidents");
 const sosRoutes = require("./routes/sos");
 const newsRoutes = require("./routes/news.routes");
 
+const chatbotRoute = require("./routes/chatbot");
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/news", newsRoutes);
+app.use("/api/chatbot", chatbotRoute);
 
 // ✅ connect to MongoDB (only once)
 mongoose.connect(process.env.MONGO_URI, {
