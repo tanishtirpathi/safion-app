@@ -13,7 +13,7 @@ const newsRoutes = require("./routes/news.routes");
 
 const chatbotRoute = require("./routes/chatbot");
 const app = express();
-const allowed = ["http://localhost:5000", "https://safion.vercel.app"];
+const allowed = ["http://localhost:5000", "https://safion-ten.vercel.app"];
 app.use(
   cors({
     origin: function (origin, callback) {
