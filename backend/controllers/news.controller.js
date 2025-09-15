@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 
 // Reverse geocode function
-export const reverseGeocode = async (lat, lon) => {
+ const reverseGeocode = async (lat, lon) => {
   try {
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${process.env.OPENCAGE_KEY}`;
     const res = await fetch(url);
@@ -26,7 +26,7 @@ export const reverseGeocode = async (lat, lon) => {
 };
 
 // Fetch city news
-export const fetchCityNews = async (city) => {
+ const fetchCityNews = async (city) => {
   try {
     const url = `https://newsdata.io/api/1/news?apikey=${process.env.NEWSDATA_KEY}&q=${city}&language=en`;
     const res = await fetch(url);
@@ -42,7 +42,7 @@ export const fetchCityNews = async (city) => {
 };
 
 // News controller
-export const getNewsByLocation = async (req, res) => {
+ const getNewsByLocation = async (req, res) => {
   try {
     const { lat, lon } = req.query;
     console.log("📍 Received request for news at:", lat, lon);
@@ -78,3 +78,4 @@ export const getNewsByLocation = async (req, res) => {
     });
   }
 };
+module.exports = { reverseGeocode ,getNewsByLocation,fetchCityNews};
