@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 // Reverse geocode function
 export const reverseGeocode = async (lat, lon) => {
