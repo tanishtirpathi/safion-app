@@ -22,16 +22,15 @@ function parseJwt(token) {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // { id, email, name, exp } or null
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      api.defaults.headers.common["Authorization"] = token;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const decoded = parseJwt(token);
       if (decoded) {
-        // token expiry check (exp is in seconds)
         if (decoded.exp && decoded.exp * 1000 < Date.now()) {
           // expired
           localStorage.removeItem("token");
@@ -55,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     localStorage.setItem("token", token);
-    api.defaults.headers.common["Authorization"] = token;
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const decoded = parseJwt(token);
     if (decoded) {
       setUser({
@@ -69,7 +68,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      // optional backend logout call
+      await api.post("/api/auth/logout");
+    } catch (e) {
+      console.warn("Logout request failed:", e.message);
+    }
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
     setUser(null);

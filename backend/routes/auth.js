@@ -44,12 +44,28 @@ router.post("/login", async (req, res) => {
     const payload = { id: user._id.toString(), email: user.email, name: user.name };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-    return res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    // Send token in response
+    return res.json({
+      message: "Login successful",
+      token,
+      user: { id: user._id, name: user.name, email: user.email }
+    });
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 });
+
+// POST /api/auth/logout
+router.post("/logout", auth, (req, res) => {
+  try {
+    return res.json({ message: "Logged out successfully, please remove token on client." });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 // GET /api/auth/dashboard (protected test)
 router.get("/dashboard", auth, async (req, res) => {
