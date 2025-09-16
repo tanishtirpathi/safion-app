@@ -3,6 +3,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Login from "./pages/Login";
+import Logout from "./pages/logout"
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ReportIncident from "./pages/ReportIncident";
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
+        
         <Route path="/signup" element={<Signup />} />
         
 
@@ -29,6 +31,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/logout"
+          element={
+            <ProtectedRoute>
+              <Logout />
             </ProtectedRoute>
           }
         />
