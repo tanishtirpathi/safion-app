@@ -1,18 +1,31 @@
-// src/pages/Logout.js
 const React = require("react");
 const { useEffect } = React;
 const { useNavigate } = require("react-router-dom");
 
 function Logout() {
   const navigate = useNavigate();
+
   useEffect(() => {
-    // localStorage/sessionStorage se token clear karo
+    // Sab jagah se clear karo
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
-    navigate("/login");
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Agar cookie based token use kar rahe ho toh
+    document.cookie.split(";").forEach((c) => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+
+    // Thoda delay dekar navigate
+    setTimeout(() => {
+      navigate("/login");
+    }, 100);
   }, [navigate]);
 
-  return React.createElement("p", null, "Logging out...");
+  return null;
 }
 
 module.exports = Logout;
