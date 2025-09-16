@@ -64,7 +64,7 @@ const News = () => {
             <li onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
             <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
             <li onClick={() => navigate("/settings")}>{("Settings")}</li>
-            <li onClick={() => navigate("/login")}>{("Logout")}</li>
+            <li onClick={() => navigate("/logout")}>{("Logout")}</li>
           </ul>
       </aside>
 

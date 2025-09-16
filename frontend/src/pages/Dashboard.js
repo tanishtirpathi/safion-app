@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useTranslation();   // ✅ Translation hook
+  const { t } = useTranslation();  
 
   // Fetch incidents from backend
   useEffect(() => {
@@ -43,7 +43,7 @@ const Dashboard = () => {
             <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
             <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
             <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
-            <li onClick={() => navigate("/login")}>{t("Logout")}</li>
+            <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
           </ul>
         </aside>
 

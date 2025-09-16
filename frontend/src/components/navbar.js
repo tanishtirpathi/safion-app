@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Logout from "../pages/logout"
 import { useTranslation } from "react-i18next";
 import "./navbar.css";
 
@@ -19,8 +20,8 @@ const languages = [
 ];
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
+    const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
 
@@ -28,7 +29,7 @@ const Navbar = () => {
   const langRef = useRef();
 
   const handleLogout = () => {
-    logout();
+    Logout();
     navigate("/login");
   };
 
